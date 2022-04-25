@@ -1,0 +1,19 @@
+{
+  "name": "student-attendance",
+  "version": "1.0.0",
+  "description": "BackEnd Go",
+  "main": "main.go",
+  "scripts": {
+    "dev": "nodemon --exec go run main.go"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MOHAMMADmiZAN/goStudentAttendance.git"
+  },
+  "author": "mizan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MOHAMMADmiZAN/goStudentAttendance/issues"
+  },
+  "homepage": "https://github.com/MOHAMMADmiZAN/goStudentAttendance#readme"
+}
