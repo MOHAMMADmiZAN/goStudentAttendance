@@ -1,5 +1,0 @@
-package Router
-
-func User() {
-
-}

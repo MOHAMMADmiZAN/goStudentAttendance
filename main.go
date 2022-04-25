@@ -1,13 +1,8 @@
 package main
 
-import (
-	"github.com/julienschmidt/httprouter"
-	"net/http"
-)
+import "github.com/MOHAMMADmiZAN/goStudentAttendance/Router"
 
 func main() {
-	route := httprouter.New()
-	route.GET("/", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	})
+	Router.Api()
 
 }
