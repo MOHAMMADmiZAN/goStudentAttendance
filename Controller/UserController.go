@@ -17,6 +17,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	err := json.NewDecoder(r.Body).Decode(&newUser)
 	if err != nil {
 		Utils.ResponseMessage(w, http.StatusBadRequest, "Invalid request body")
+		return
 	}
 	if len(newUser.Roles) == 0 {
 		newUser.Roles = []string{"User"}
@@ -24,12 +25,13 @@ func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	if newUser.AccountStatus == "" {
 		newUser.AccountStatus = "Pending"
 	}
-	if Service.DuplicateUser(w, newUser.Email) {
+	if !Service.DuplicateUser(w, newUser.Email) {
 		hashedPassword := Service.PasswordHash(newUser.Password)
 		user := Model.UserModel(newUser.Name, newUser.Email, hashedPassword, newUser.Roles, newUser.AccountStatus)
 		err = mgm.Coll(user).Create(user)
 		if err != nil {
 			Utils.ResponseMessage(w, http.StatusInternalServerError, "Internal server error")
+			return
 		}
 		Utils.ResponseMessage(w, http.StatusCreated, user)
 	}
