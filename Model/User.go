@@ -1,6 +1,6 @@
 package Model
 
-import "github.com/Kamva/mgm"
+import "github.com/kamva/mgm/v3"
 
 type User struct {
 	mgm.DefaultModel `bson:",inline"`
@@ -20,5 +20,3 @@ func UserModel(name string, email string, password string, roles []string, accou
 		AccountStatus: account_status,
 	}
 }
-
-// make a uuid function for user

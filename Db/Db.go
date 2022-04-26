@@ -2,7 +2,7 @@ package Db
 
 import (
 	"fmt"
-	"github.com/Kamva/mgm"
+	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
 )
