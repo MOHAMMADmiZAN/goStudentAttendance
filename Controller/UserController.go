@@ -2,21 +2,24 @@ package Controller
 
 import (
 	"encoding/json"
+	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helpers"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Model"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Service"
-	"github.com/MOHAMMADmiZAN/goStudentAttendance/Utils"
 	"github.com/julienschmidt/httprouter"
 	"github.com/kamva/mgm/v3"
-	"log"
+	"go.mongodb.org/mongo-driver/bson"
 	"net/http"
+	"sync"
 )
+
+var wg sync.WaitGroup
 
 // CreateUser create new user //
 func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	var newUser Service.CreateRequestUser
 	err := json.NewDecoder(r.Body).Decode(&newUser)
 	if err != nil {
-		Utils.ResponseMessage(w, http.StatusBadRequest, "Invalid request body")
+		Helpers.ResponseMessage(w, http.StatusBadRequest, "Invalid request body")
 		return
 	}
 	if len(newUser.Roles) == 0 {
@@ -30,98 +33,114 @@ func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		user := Model.UserModel(newUser.Name, newUser.Email, hashedPassword, newUser.Roles, newUser.AccountStatus)
 		err = mgm.Coll(user).Create(user)
 		if err != nil {
-			Utils.ResponseMessage(w, http.StatusInternalServerError, "Internal server error")
+			Helpers.ResponseMessage(w, http.StatusInternalServerError, "Internal server error")
 			return
 		}
-		Utils.ResponseMessage(w, http.StatusCreated, user)
+		Helpers.ResponseMessage(w, http.StatusCreated, "User created successfully")
 	}
 
 }
 
-// get user by id
-func GetUser(w http.ResponseWriter, _, p httprouter.Params) {
-	id := p.ByName("id")
-	user := &Model.User{}
-	coll := mgm.Coll(user)
-	err := coll.FindByID(id, user)
-	if err != nil {
-		log.Println(err)
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	err = json.NewEncoder(w).Encode(user)
-	if err != nil {
-		log.Println(err)
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
+// GetUser get user by id
+func GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	wg.Add(1)
+	go func() {
+		id := p.ByName("id")
+		user := &Model.User{}
+		coll := mgm.Coll(user)
+		err := coll.FindByID(id, user)
+		if err != nil {
+			Helpers.ResponseMessage(w, http.StatusNotFound, "User not found")
+			return
+		}
+		Helpers.ResponseMessage(w, http.StatusOK, user)
+		wg.Done()
+	}()
+	wg.Wait()
 }
 
-// delete user by id
-func DeleteUser(w http.ResponseWriter, _, p httprouter.Params) {
-	id := p.ByName("id")
-	user := &Model.User{}
-	coll := mgm.Coll(user)
-	err := coll.FindByID(id, user)
-	if err != nil {
-		log.Println(err)
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	err = coll.Delete(user)
-	if err != nil {
-		log.Println(err)
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	w.WriteHeader(http.StatusOK)
+// DeleteUser delete user by id
+func DeleteUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	wg.Add(1)
+	go func() {
+		id := p.ByName("id")
+		user := &Model.User{}
+		coll := mgm.Coll(user)
+		err := coll.FindByID(id, user)
+		if err != nil {
+			Helpers.ResponseMessage(w, http.StatusNotFound, "User not found")
+			return
+		}
+		err = coll.Delete(user)
+		if err != nil {
+			Helpers.ResponseMessage(w, http.StatusInternalServerError, "Internal server error")
+			return
+		}
+		Helpers.ResponseMessage(w, http.StatusOK, "User deleted Successfully")
+		wg.Done()
+	}()
+	wg.Wait()
 }
 
-// update user by id
+// UpdateUser update user by id
 func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	id := p.ByName("id")
-	var updateUser Service.CreateRequestUser
-	err := json.NewDecoder(r.Body).Decode(&updateUser)
-	if err != nil {
-		log.Println(err)
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	user := &Model.User{}
-	coll := mgm.Coll(user)
-	err = coll.FindByID(id, user)
-	if err != nil {
-		log.Println(err)
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	if updateUser.Name != "" {
-		user.Name = updateUser.Name
-	}
-	if updateUser.Email != "" {
-		user.Email = updateUser.Email
-	}
-	if updateUser.Password != "" {
-		user.Password = Service.PasswordHash(updateUser.Password)
-	}
-	if len(updateUser.Roles) != 0 {
-		user.Roles = updateUser.Roles
-	}
-	if updateUser.AccountStatus != "" {
-		user.AccountStatus = updateUser.AccountStatus
-	}
-	err = coll.Update(user)
-	if err != nil {
-		log.Println(err)
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	err = json.NewEncoder(w).Encode(user)
-	if err != nil {
-		log.Println(err)
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
+	wg.Add(1)
+	go func() {
+		id := p.ByName("id")
+		var updateUser Service.CreateRequestUser
+		err := json.NewDecoder(r.Body).Decode(&updateUser)
+		if err != nil {
+			Helpers.ResponseMessage(w, http.StatusBadRequest, "Invalid request body")
+			return
+		}
+		user := &Model.User{}
+		coll := mgm.Coll(user)
+		err = coll.FindByID(id, user)
+		if err != nil {
+			Helpers.ResponseMessage(w, http.StatusNotFound, "User not found")
+			return
+		}
+		if updateUser.Name != "" {
+			user.Name = updateUser.Name
+		}
+		if updateUser.Email != "" {
+			user.Email = updateUser.Email
+		}
+		if updateUser.Password != "" {
+			user.Password = Service.PasswordHash(updateUser.Password)
+		}
+		if len(updateUser.Roles) != 0 {
+			user.Roles = updateUser.Roles
+		}
+		if updateUser.AccountStatus != "" {
+			user.AccountStatus = updateUser.AccountStatus
+		}
+		err = coll.Update(user)
+		if err != nil {
+			Helpers.ResponseMessage(w, http.StatusInternalServerError, "Internal server error")
+			return
+		}
+		Helpers.ResponseMessage(w, http.StatusOK, "User updated Successfully")
+		wg.Done()
+	}()
+	wg.Wait()
 }
 
-// user find by email
+// GetAllUsers get all users
+func GetAllUsers(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	wg.Add(1)
+	go func() {
+		user := &Model.User{}
+		coll := mgm.Coll(user)
+		var users []Model.User
+		err := coll.SimpleFind(&users, bson.M{})
+		if err != nil {
+			Helpers.ResponseMessage(w, http.StatusInternalServerError, err.Error())
+			return
+		}
+		Helpers.ResponseMessage(w, http.StatusOK, users)
+		wg.Done()
+	}()
+	wg.Wait()
+
+}

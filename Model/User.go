@@ -2,9 +2,13 @@ package Model
 
 import "github.com/kamva/mgm/v3"
 
+/**
+TODO : User model Validation
+*/
+
 type User struct {
 	mgm.DefaultModel `bson:",inline"`
-	Name             string   `json:"username" bson:"username"`
+	Name             string   `json:"name" bson:"name"`
 	Email            string   `json:"email" bson:"email"`
 	Password         string   `json:"password" bson:"password"`
 	Roles            []string `json:"roles" bson:"roles"`

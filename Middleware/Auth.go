@@ -1,8 +1,8 @@
 package Middleware
 
 import (
+	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helpers"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Service"
-	"github.com/MOHAMMADmiZAN/goStudentAttendance/Utils"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"strings"
@@ -16,18 +16,18 @@ func Auth(next httprouter.Handle) httprouter.Handle {
 			authToken = strings.Split(authToken, " ")[1]
 			token, err := Service.DecodeJwtToken(w, authToken)
 			if err != nil {
-				Utils.ResponseMessage(w, http.StatusUnauthorized, "Unauthorized")
+				Helpers.ResponseMessage(w, http.StatusUnauthorized, "Unauthorized")
 				return
 			}
 			email := token["data"].(string)
 			if !Service.ExistsUser(w, email) {
-				Utils.ResponseMessage(w, http.StatusUnauthorized, "Unauthorized")
+				Helpers.ResponseMessage(w, http.StatusUnauthorized, "please login first")
 				return
 			}
 			next(w, r, ps)
 
 		} else {
-			Utils.ResponseMessage(w, http.StatusUnauthorized, "Unauthorized")
+			Helpers.ResponseMessage(w, http.StatusUnauthorized, "Unauthorized")
 			return
 		}
 

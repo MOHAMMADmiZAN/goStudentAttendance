@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Controller"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Db"
+	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helpers"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Middleware"
-	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
 	"github.com/rs/cors"
 	"log"
@@ -16,10 +16,7 @@ import (
 var Route *httprouter.Router
 
 func Api() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		panic(err)
-	}
+	Helpers.LoadEnv()
 	// portNumber //
 	port := os.Getenv("PORT_NUMBER")
 	//Route init //
@@ -32,11 +29,16 @@ func Api() {
 	Route.POST("/register", Controller.CreateUser)
 	// login route //
 	Route.POST("/login", Controller.Login)
+	// user route //
+	Route.GET("/users", Middleware.Auth(Controller.GetAllUsers))
+	Route.GET("/users/:id", Middleware.Auth(Controller.GetUser))
+	Route.PUT("/users/:id", Middleware.Auth(Controller.UpdateUser))
+	Route.DELETE("/users/:id", Middleware.Auth(Controller.DeleteUser))
 
 	Db.Init()
 	fmt.Println("Server started on port " + port)
 	hand := cors.Default().Handler(Route)
-	err = http.ListenAndServe(":"+port, hand)
+	err := http.ListenAndServe(":"+port, hand)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
