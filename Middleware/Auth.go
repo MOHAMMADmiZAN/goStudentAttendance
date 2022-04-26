@@ -20,6 +20,7 @@ func Auth(next httprouter.Handle) httprouter.Handle {
 				return
 			}
 			email := token["data"].(string)
+
 			if !Service.ExistsUser(w, email) {
 				Helpers.ResponseMessage(w, http.StatusUnauthorized, "please login first")
 				return

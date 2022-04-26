@@ -22,9 +22,10 @@ func Api() {
 	//Route init //
 	Route = httprouter.New()
 	// user route //
-	Route.GET("/", Middleware.Auth(func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	Route.GET("/", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		fmt.Fprintf(w, "Welcome to Student Attendance System")
-	}))
+
+	})
 	// register route //
 	Route.POST("/register", Controller.CreateUser)
 	// login route //
