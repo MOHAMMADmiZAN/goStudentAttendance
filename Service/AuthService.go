@@ -34,21 +34,21 @@ type verifyRequestUserMethod interface {
 }
 
 //StoreVerifyRequest is a Method to store the verify request
-func (verifyRequestUser VerifyRequestUser) StoreVerifyRequest(id string, exp int64) VerifyRequestUser {
+func (v VerifyRequestUser) StoreVerifyRequest(id string, exp int64) VerifyRequestUser {
 	return VerifyRequestUser{
 		Id:         id,
 		ExpireTime: exp,
 	}
 }
 
-// GetIdFromVerifyRequest getid form the verify request
-func (verifyRequestUser VerifyRequestUser) GetIdFromVerifyRequest() string {
-	return verifyRequestUser.Id
+// GetIdFromVerifyRequest get id form the verify request
+func (v VerifyRequestUser) GetIdFromVerifyRequest() string {
+	return v.Id
 }
 
-// GetExpireTimeFromVerifyRequest getexpiretime form the verify request
-func (verifyRequestUser VerifyRequestUser) GetExpireTimeFromVerifyRequest() int64 {
-	return verifyRequestUser.ExpireTime
+// GetExpireTimeFromVerifyRequest get expire time form the verify request
+func (v VerifyRequestUser) GetExpireTimeFromVerifyRequest() int64 {
+	return v.ExpireTime
 }
 
 // LoginResponse is a function that returns a response to the user
@@ -82,7 +82,7 @@ func (l LoginUser) LoginResponse(w http.ResponseWriter, r *http.Request) {
 		}
 		id := UserId(w, l.Email)
 		exp := int64(jwtToken["exp"].(float64))
-		LogVerify = VerifyRequestUser.StoreVerifyRequest(VerifyRequestUser{Id: id, ExpireTime: exp}, id, exp)
+		LogVerify = VerifyRequestUser.StoreVerifyRequest(LogVerify, id, exp)
 
 		Helpers.ResponseMessage(w, http.StatusOK, loginResponse)
 
