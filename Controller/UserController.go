@@ -11,7 +11,7 @@ import (
 	"net/http"
 )
 
-// CreateUser create new user //
+// CreateNewUser CreateUser create new user //
 func CreateNewUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	var newUser Service.CreateRequestUser
 	Service.CreateRequestUser.CreateUser(newUser, w, r)

@@ -62,4 +62,25 @@ func MyArrayMap(arr []string, callback func(v string, i int, arr []string)) []st
 	return arr
 }
 
-// My Array Reduce My Array Reduce function takes in an array and a callback and returns a new  array
+// GetCookie get cockie function
+func GetCookie(w http.ResponseWriter, r *http.Request, name string) string {
+	c, err := r.Cookie(name)
+	if err != nil {
+		ResponseMessage(w, http.StatusBadRequest, "Cookie not found")
+		return ""
+
+	} else {
+		ResponseMessage(w, http.StatusOK, "Cookie found")
+	}
+
+	return c.Value
+}
+
+// AddCookie for global Request
+func AddCookie(w http.ResponseWriter, r *http.Request, name string, value string) {
+	c := &http.Cookie{
+		Name:  name,
+		Value: value,
+	}
+	http.SetCookie(w, c)
+}

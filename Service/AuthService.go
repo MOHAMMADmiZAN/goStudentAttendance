@@ -2,7 +2,6 @@ package Service
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helpers"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/joho/godotenv"
@@ -17,6 +16,39 @@ type LoginUser struct {
 }
 type LoginMethod interface {
 	LoginResponse()
+}
+
+// VerifyRequestUser verify Request User struct
+type VerifyRequestUser struct {
+	Id         string `json:"id"`
+	ExpireTime int64  `json:"expireTime"`
+}
+
+var LogVerify VerifyRequestUser
+
+// verify request interface
+type verifyRequestUserMethod interface {
+	StoreVerifyRequest(id string, exp int64) *VerifyRequestUser
+	GetIdFromVerifyRequest() string
+	GetExpireTimeFromVerifyRequest() int64
+}
+
+//StoreVerifyRequest is a Method to store the verify request
+func (verifyRequestUser VerifyRequestUser) StoreVerifyRequest(id string, exp int64) VerifyRequestUser {
+	return VerifyRequestUser{
+		Id:         id,
+		ExpireTime: exp,
+	}
+}
+
+// GetIdFromVerifyRequest getid form the verify request
+func (verifyRequestUser VerifyRequestUser) GetIdFromVerifyRequest() string {
+	return verifyRequestUser.Id
+}
+
+// GetExpireTimeFromVerifyRequest getexpiretime form the verify request
+func (verifyRequestUser VerifyRequestUser) GetExpireTimeFromVerifyRequest() int64 {
+	return verifyRequestUser.ExpireTime
 }
 
 // LoginResponse is a function that returns a response to the user
@@ -44,8 +76,13 @@ func (l LoginUser) LoginResponse(w http.ResponseWriter, r *http.Request) {
 			Token:   token,
 			Message: "Login Successfully",
 		}
-		r.Header.Add("User-Id", UserId(w, l.Email))
-		fmt.Println(r.Header)
+		jwtToken, err := DecodeJwtToken(w, token)
+		if err != nil {
+			Helpers.ResponseMessage(w, http.StatusBadGateway, "Error while decoding token")
+		}
+		id := UserId(w, l.Email)
+		exp := int64(jwtToken["exp"].(float64))
+		LogVerify = VerifyRequestUser.StoreVerifyRequest(VerifyRequestUser{Id: id, ExpireTime: exp}, id, exp)
 
 		Helpers.ResponseMessage(w, http.StatusOK, loginResponse)
 

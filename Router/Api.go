@@ -6,7 +6,6 @@ import (
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Db"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helpers"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Middleware"
-	"github.com/MOHAMMADmiZAN/goStudentAttendance/Service"
 	"github.com/julienschmidt/httprouter"
 	"github.com/rs/cors"
 	"log"
@@ -24,27 +23,21 @@ func Api() {
 	Route = httprouter.New()
 	// user route //
 	Route.GET("/", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		Helpers.MyArrayMap(Service.UserRoles, func(v string, i int, arr []string) {
-			fmt.Fprintf(w, "%s\n", v)
-			fmt.Println(i, v)
-
-		})
+		fmt.Fprintf(w, "Welcome to Student Attendance System")
 
 	})
-	// register route //
+	// Auth route //
 	Route.POST("/register", Controller.Register)
-	// login route //
-	Route.POST("/login", Controller.Login)
-	// user route //
 
+	Route.POST("/login", Controller.Login)
+
+	// user route //
 	Route.GET("/users", Middleware.Auth(Controller.GetAllUsers))
 	Route.POST("/users", Middleware.Auth(Controller.CreateNewUser))
 	Route.GET("/users/:id", Middleware.Auth(Controller.GetUser))
 	Route.PUT("/users/:id", Middleware.Auth(Controller.UpdateUser))
 	Route.DELETE("/users/:id", Middleware.Auth(Controller.DeleteUser))
 	// student route //
-
-	// Profile route //
 
 	Db.Init()
 	fmt.Println("Server started on port " + port)
