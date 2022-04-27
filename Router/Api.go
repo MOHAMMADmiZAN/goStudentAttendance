@@ -32,12 +32,13 @@ func Api() {
 
 	})
 	// register route //
-	Route.POST("/register", Controller.CreateUser)
+	Route.POST("/register", Controller.Register)
 	// login route //
 	Route.POST("/login", Controller.Login)
 	// user route //
 
 	Route.GET("/users", Middleware.Auth(Controller.GetAllUsers))
+	Route.POST("/users", Middleware.Auth(Controller.CreateNewUser))
 	Route.GET("/users/:id", Middleware.Auth(Controller.GetUser))
 	Route.PUT("/users/:id", Middleware.Auth(Controller.UpdateUser))
 	Route.DELETE("/users/:id", Middleware.Auth(Controller.DeleteUser))

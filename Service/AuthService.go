@@ -2,6 +2,7 @@ package Service
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helpers"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/joho/godotenv"
@@ -43,6 +44,8 @@ func (l LoginUser) LoginResponse(w http.ResponseWriter, r *http.Request) {
 			Token:   token,
 			Message: "Login Successfully",
 		}
+		r.Header.Add("User-Id", UserId(w, l.Email))
+		fmt.Println(r.Header)
 
 		Helpers.ResponseMessage(w, http.StatusOK, loginResponse)
 

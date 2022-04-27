@@ -2,7 +2,6 @@ package Controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helpers"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Model"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Service"
@@ -10,48 +9,12 @@ import (
 	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson"
 	"net/http"
-	"strings"
 )
 
 // CreateUser create new user //
-func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func CreateNewUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	var newUser Service.CreateRequestUser
-	err := json.NewDecoder(r.Body).Decode(&newUser)
-	if err != nil {
-		Helpers.ResponseMessage(w, http.StatusBadRequest, "Invalid request body")
-		return
-	}
-	if len(newUser.Roles) == 0 {
-		newUser.Roles = []string{"USER"}
-	}
-	if len(newUser.Roles) > 0 {
-		for _, role := range newUser.Roles {
-			if Helpers.Contains(Service.UserRoles, role) {
-				strings.ToUpper(role)
-				continue
-			} else {
-				roleErr := fmt.Sprintf("Role %s is not allowed", role)
-				Helpers.ResponseMessage(w, http.StatusBadRequest, roleErr)
-				return
-			}
-
-		}
-	}
-
-	if newUser.AccountStatus == "" {
-		newUser.AccountStatus = "PENDING"
-	}
-	if !Service.DuplicateUser(w, newUser.Email) {
-		hashedPassword := Service.PasswordHash(newUser.Password)
-		user := Model.UserModel(newUser.Name, newUser.Email, hashedPassword, newUser.Roles, newUser.AccountStatus)
-		err = mgm.Coll(user).Create(user)
-		if err != nil {
-			Helpers.ResponseMessage(w, http.StatusInternalServerError, "Internal server error")
-			return
-		}
-		Helpers.ResponseMessage(w, http.StatusCreated, "User created successfully")
-
-	}
+	Service.CreateRequestUser.CreateUser(newUser, w, r)
 
 }
 

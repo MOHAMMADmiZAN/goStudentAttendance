@@ -25,12 +25,12 @@ func Auth(next httprouter.Handle) httprouter.Handle {
 				Helpers.ResponseMessage(w, http.StatusUnauthorized, "please login first")
 				return
 			}
-			next(w, r, ps)
+			if Service.UserId(w, email) != r.Header.Get("User-Id") {
+				Helpers.ResponseMessage(w, http.StatusUnauthorized, "Unauthorized")
+			}
 
-		} else {
-			Helpers.ResponseMessage(w, http.StatusUnauthorized, "Unauthorized")
-			return
 		}
+		next(w, r, ps)
 
 	}
 
