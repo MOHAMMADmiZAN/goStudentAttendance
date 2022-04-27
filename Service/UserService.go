@@ -18,6 +18,9 @@ type CreateRequestUser struct {
 	AccountStatus string   `json:"account_status"`
 }
 
+// UserRoles user Role
+var UserRoles = []string{"admin", "user", "student"}
+
 // PasswordHash Password hashing
 func PasswordHash(pass string) string {
 	pw := []byte(pass)
@@ -42,7 +45,8 @@ func ExistsUserPassword(w http.ResponseWriter, email string) string {
 	user := &Model.User{}
 	err := mgm.Coll(user).First(bson.M{"email": email}, user)
 	if err != nil {
-		Helpers.ResponseMessage(w, http.StatusBadRequest, "User Not Exists")
+		Helpers.ResponseMessage(w, http.StatusNotFound, "User Not Exists")
+		return ""
 	}
 
 	return user.Password

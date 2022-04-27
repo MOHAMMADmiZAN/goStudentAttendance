@@ -2,6 +2,7 @@ package Controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helpers"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Model"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Service"
@@ -9,10 +10,8 @@ import (
 	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson"
 	"net/http"
-	"sync"
+	"strings"
 )
-
-var wg sync.WaitGroup
 
 // CreateUser create new user //
 func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -23,10 +22,24 @@ func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 	if len(newUser.Roles) == 0 {
-		newUser.Roles = []string{"User"}
+		newUser.Roles = []string{"USER"}
 	}
+	if len(newUser.Roles) > 0 {
+		for _, role := range newUser.Roles {
+			if Helpers.Contains(Service.UserRoles, role) {
+				strings.ToUpper(role)
+				continue
+			} else {
+				roleErr := fmt.Sprintf("Role %s is not allowed", role)
+				Helpers.ResponseMessage(w, http.StatusBadRequest, roleErr)
+				return
+			}
+
+		}
+	}
+
 	if newUser.AccountStatus == "" {
-		newUser.AccountStatus = "Pending"
+		newUser.AccountStatus = "PENDING"
 	}
 	if !Service.DuplicateUser(w, newUser.Email) {
 		hashedPassword := Service.PasswordHash(newUser.Password)
@@ -37,6 +50,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			return
 		}
 		Helpers.ResponseMessage(w, http.StatusCreated, "User created successfully")
+
 	}
 
 }

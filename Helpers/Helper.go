@@ -43,3 +43,23 @@ func LoadEnv() {
 		os.Exit(1)
 	}
 }
+
+// Contains array contains  function
+func Contains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
+}
+
+// MyArrayMap My Array Map function  takes in an array and a callback and returns a new  array
+func MyArrayMap(arr []string, callback func(v string, i int, arr []string)) []string {
+	for i := 0; i < len(arr); i++ {
+		callback(arr[i], i, arr)
+	}
+	return arr
+}
+
+// My Array Reduce My Array Reduce function takes in an array and a callback and returns a new  array

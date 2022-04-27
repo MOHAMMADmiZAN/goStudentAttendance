@@ -15,7 +15,7 @@ type LoginUser struct {
 	Password string `json:"password"`
 }
 type LoginMethod interface {
-	LoginResponse(w http.ResponseWriter, r *http.Request)
+	LoginResponse()
 }
 
 // LoginResponse is a function that returns a response to the user
@@ -31,7 +31,7 @@ func (l LoginUser) LoginResponse(w http.ResponseWriter, r *http.Request) {
 	}
 
 	hashPass := ExistsUserPassword(w, l.Email)
-	if ValidatePassword(w, hashPass, l.Password) {
+	if len(hashPass) != 0 && ValidatePassword(w, hashPass, l.Password) {
 		token, err := MakeJwtToken(w, l.Email)
 		if err != nil {
 			Helpers.ResponseMessage(w, http.StatusBadGateway, "Error while generating token")

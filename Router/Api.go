@@ -6,6 +6,7 @@ import (
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Db"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helpers"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Middleware"
+	"github.com/MOHAMMADmiZAN/goStudentAttendance/Service"
 	"github.com/julienschmidt/httprouter"
 	"github.com/rs/cors"
 	"log"
@@ -23,7 +24,11 @@ func Api() {
 	Route = httprouter.New()
 	// user route //
 	Route.GET("/", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		fmt.Fprintf(w, "Welcome to Student Attendance System")
+		Helpers.MyArrayMap(Service.UserRoles, func(v string, i int, arr []string) {
+			fmt.Fprintf(w, "%s\n", v)
+			fmt.Println(i, v)
+
+		})
 
 	})
 	// register route //
