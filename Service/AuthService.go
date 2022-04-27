@@ -1,6 +1,7 @@
 package Service
 
 import (
+	"encoding/json"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helpers"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/joho/godotenv"
@@ -12,6 +13,41 @@ import (
 type LoginUser struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
+}
+type LoginMethod interface {
+	LoginResponse(w http.ResponseWriter, r *http.Request)
+}
+
+// LoginResponse is a function that returns a response to the user
+func (l LoginUser) LoginResponse(w http.ResponseWriter, r *http.Request) {
+	err := json.NewDecoder(r.Body).Decode(&l)
+	if err != nil {
+		Helpers.ResponseMessage(w, http.StatusBadRequest, "Invalid request payload")
+		return
+	}
+	if l.Email == "" || l.Password == "" {
+		Helpers.ResponseMessage(w, http.StatusBadRequest, "Invalid Input")
+		return
+	}
+
+	hashPass := ExistsUserPassword(w, l.Email)
+	if ValidatePassword(w, hashPass, l.Password) {
+		token, err := MakeJwtToken(w, l.Email)
+		if err != nil {
+			Helpers.ResponseMessage(w, http.StatusBadGateway, "Error while generating token")
+		}
+		loginResponse := struct {
+			Token   string `json:"token"`
+			Message string `json:"message"`
+		}{
+			Token:   token,
+			Message: "Login Successfully",
+		}
+
+		Helpers.ResponseMessage(w, http.StatusOK, loginResponse)
+
+	}
+
 }
 
 // MakeJwtToken make a jwt token for user

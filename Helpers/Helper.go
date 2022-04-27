@@ -11,6 +11,18 @@ type JsonResponse struct {
 	Status  int         `json:"status"`
 	Message interface{} `json:"message"`
 }
+type JsonResponseMethod interface {
+	GetResponse()
+}
+
+// GetResponse get response method
+func (j JsonResponse) GetResponse(w http.ResponseWriter) {
+	err := json.NewEncoder(w).Encode(j)
+	if err != nil {
+		ResponseMessage(w, http.StatusInternalServerError, "Error encoding response")
+	}
+
+}
 
 // ResponseMessage is a helper function that takes in a status code and a message and returns a JSON response
 func ResponseMessage(w http.ResponseWriter, status int, message interface{}) {
@@ -20,15 +32,11 @@ func ResponseMessage(w http.ResponseWriter, status int, message interface{}) {
 		Status:  status,
 		Message: message,
 	}
-
-	err := json.NewEncoder(w).Encode(j)
-	if err != nil {
-		ResponseMessage(w, http.StatusInternalServerError, "Error encoding response")
-	}
+	JsonResponse.GetResponse(j, w)
 
 }
 
-// load env file
+// LoadEnv load env file
 func LoadEnv() {
 	err := godotenv.Load(".env")
 	if err != nil {

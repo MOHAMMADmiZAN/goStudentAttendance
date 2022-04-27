@@ -31,10 +31,14 @@ func Api() {
 	// login route //
 	Route.POST("/login", Controller.Login)
 	// user route //
+
 	Route.GET("/users", Middleware.Auth(Controller.GetAllUsers))
 	Route.GET("/users/:id", Middleware.Auth(Controller.GetUser))
 	Route.PUT("/users/:id", Middleware.Auth(Controller.UpdateUser))
 	Route.DELETE("/users/:id", Middleware.Auth(Controller.DeleteUser))
+	// student route //
+
+	// Profile route //
 
 	Db.Init()
 	fmt.Println("Server started on port " + port)
