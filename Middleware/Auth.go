@@ -27,6 +27,7 @@ func Auth(next httprouter.Handle) httprouter.Handle {
 			}
 			if Service.UserId(w, email) != r.Header.Get("User-Id") {
 				Helpers.ResponseMessage(w, http.StatusUnauthorized, "Unauthorized")
+				return
 			}
 
 		}
