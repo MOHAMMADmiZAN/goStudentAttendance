@@ -12,7 +12,7 @@ type JsonResponse struct {
 	Message interface{} `json:"message"`
 }
 type JsonResponseMethod interface {
-	GetResponse()
+	GetResponse(w http.ResponseWriter)
 }
 
 // GetResponse get response method
