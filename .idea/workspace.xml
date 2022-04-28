@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f35ff922-59c6-4c4d-98df-6e11f65d5674" name="Changes" comment="refactor">
+      <change afterPath="$PROJECT_DIR$/Server/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Controller/AuthController.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Controller/UserController.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Db/Db.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Helpers/Helper.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Middleware/Auth.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Model/AdminAttendance.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Model/Profile.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Model/StudentAttendance.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Model/User.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Router/Api.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Service/AuthService.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/Service/UserService.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/go.sum" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/student-attendance.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/AuthController.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/UserController.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Db/Db.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Helpers/Helper.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Middleware/Auth.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/AdminAttendance.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/Profile.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/StudentAttendance.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/User.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Router/Api.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Service/AuthService.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Service/UserService.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go Application" />
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file://C:/Program Files/Go" />
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="28ICl0JMJfAXkVKtdcUJbxnCrUq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.format.on.save.advertiser.fired&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;16.14.2&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;16.11.31&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;C:/Program Files/nodejs/node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.typescriptcompiler&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="student-attendance" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="PACKAGE" />
+      <package value="student-attendance" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="student-attendance" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="DIRECTORY" />
+      <package value="student-attendance" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="update" />
+    <MESSAGE value="jwt token and Auth" />
+    <MESSAGE value="user finish and refactor code" />
+    <MESSAGE value="Model created for Profile.go, AdminAttendance.go,StudentAttendance" />
+    <MESSAGE value="auth middle wire almost complete and request header add and request cookies not work in every route" />
+    <MESSAGE value="auth middle wire almost complete and request header add and request cookies not work in every route &amp;&amp; deleted unused res" />
+    <MESSAGE value="method refactor" />
+    <MESSAGE value="refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>
