@@ -32,27 +32,27 @@ func (u CreateRequestUser) CreateUser(w http.ResponseWriter, r *http.Request) {
 		Helpers.ResponseMessage(w, http.StatusBadRequest, "Invalid request Input")
 		return
 	}
-	if len(u.Roles) == 0 {
-		u.Roles = []string{"USER"}
-	}
-	if len(u.Roles) > 0 {
-		for _, role := range u.Roles {
-			if Helpers.Contains(UserRoles, role) {
-				strings.ToUpper(role)
-				continue
-			} else {
-				roleErr := fmt.Sprintf("Role %s is not allowed", role)
-				Helpers.ResponseMessage(w, http.StatusBadRequest, roleErr)
-				return
-			}
-
-		}
-	}
 
 	if u.AccountStatus == "" {
 		u.AccountStatus = "PENDING"
 	}
 	if !DuplicateUser(w, u.Email) {
+		if len(u.Roles) == 0 {
+			u.Roles = []string{"USER"}
+		}
+		if len(u.Roles) > 0 {
+			for _, role := range u.Roles {
+				if Helpers.Contains(UserRoles, role) {
+					strings.ToUpper(role)
+					continue
+				} else {
+					roleErr := fmt.Sprintf("Role %s is not allowed", role)
+					Helpers.ResponseMessage(w, http.StatusBadRequest, roleErr)
+					return
+				}
+
+			}
+		}
 		hashedPassword := PasswordHash(u.Password)
 		user := Model.UserModel(u.Name, u.Email, hashedPassword, u.Roles, u.AccountStatus)
 		err = mgm.Coll(user).Create(user)
@@ -61,12 +61,13 @@ func (u CreateRequestUser) CreateUser(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		Helpers.ResponseMessage(w, http.StatusCreated, "User created successfully")
+		return
 
 	}
 }
 
 // UserRoles user Role
-var UserRoles = []string{"ADMIN", "USER", "student"}
+var UserRoles = []string{"ADMIN", "USER", "STUDENT"}
 
 // PasswordHash Password hashing
 func PasswordHash(pass string) string {
