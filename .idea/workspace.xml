@@ -4,48 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f35ff922-59c6-4c4d-98df-6e11f65d5674" name="Changes" comment="refactor">
-      <change afterPath="$PROJECT_DIR$/Server/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Controller/AuthController.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Controller/UserController.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Db/Db.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Helpers/Helper.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Middleware/Auth.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Model/AdminAttendance.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Model/Profile.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Model/StudentAttendance.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Model/User.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Router/Api.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Service/AuthService.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/Service/UserService.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/go.sum" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/student-attendance.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/AuthController.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/UserController.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Db/Db.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Helpers/Helper.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Middleware/Auth.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/AdminAttendance.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/Profile.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/StudentAttendance.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/User.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Router/Api.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/AuthService.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/UserService.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
-    </list>
+    <list default="true" id="f35ff922-59c6-4c4d-98df-6e11f65d5674" name="Changes" comment="refactor" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
