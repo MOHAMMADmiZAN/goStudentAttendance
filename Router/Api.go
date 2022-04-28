@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Controller"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Db"
-	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helper"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Middleware"
 	"github.com/julienschmidt/httprouter"
 	"github.com/rs/cors"
@@ -23,7 +22,7 @@ func Api() {
 		Route = httprouter.New()
 		// user route //
 		Route.GET("/", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-			fmt.Println(Helper.RandomString(32))
+
 		})
 		// Auth route //
 		Route.POST("/register", Controller.Register)

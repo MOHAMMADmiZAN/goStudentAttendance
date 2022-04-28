@@ -84,7 +84,7 @@ func PasswordHash(pass string) string {
 // DuplicateUser Duplicate User Find
 func DuplicateUser(w http.ResponseWriter, email string) bool {
 	if ExistsUser(w, email) {
-		Helper.ResponseMessage(w, http.StatusBadRequest, "User Already Exists")
+		Helper.ResponseMessage(w, http.StatusConflict, "User Already Exists")
 		return true
 	}
 	return false

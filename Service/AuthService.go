@@ -105,7 +105,7 @@ func MakeJwtToken(w http.ResponseWriter, data interface{}) (string, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
 	claims["data"] = data
-	claims["exp"] = time.Now().Add(time.Hour * 10).Unix()
+	claims["exp"] = time.Now().Add(time.Hour * 1).Unix()
 
 	tokenString, err := token.SignedString([]byte(secret))
 	if err != nil {

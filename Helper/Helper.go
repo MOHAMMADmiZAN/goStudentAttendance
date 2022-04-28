@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"github.com/gorilla/securecookie"
 	"github.com/joho/godotenv"
+	"io/ioutil"
 	"math/rand"
 	"net/http"
 	"os"
+	"time"
 )
 
 var hashKey = securecookie.GenerateRandomKey(32)
@@ -96,7 +98,7 @@ func MakeSecureCookie(w http.ResponseWriter, r *http.Request, name string, value
 	http.SetCookie(w, &http.Cookie{
 		Name:     name,
 		Value:    encoded,
-		MaxAge:   int(maxAge),
+		Expires:  Int64ToTime(maxAge),
 		SameSite: http.SameSiteStrictMode,
 	})
 
@@ -129,4 +131,46 @@ func RandomString(n int) string {
 		b[i] = letterBytes[rand.Intn(len(letterBytes))]
 	}
 	return string(b)
+}
+
+// find location against user ip
+func FindLocation(ip string) (string, error) {
+	resp, err := http.Get("http://ip-api.com/json/" + ip)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+	var data map[string]interface{}
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		return "", err
+	}
+	return data["country"].(string), nil
+
+}
+
+// caught user ip who visit my website
+func GetUserIP(r *http.Request) string {
+	ip := r.Header.Get("X-Forwarded-For")
+	if ip == "" {
+		ip = r.RemoteAddr
+	}
+	return ip
+}
+
+// unix time to date time
+func UnixToDateTime(unix int64) string {
+	t := time.Unix(unix, 0)
+	return t.Format("2006-01-02 15:04:05")
+
+}
+
+//int64 to time.time
+func Int64ToTime(unix int64) time.Time {
+	t := time.Unix(unix, 0)
+	return t
 }
