@@ -12,6 +12,9 @@ import (
 	"strings"
 )
 
+// UserRoles user Role
+var UserRoles = []string{"ADMIN", "USER", "STUDENT"}
+
 // CreateRequestUser create new user struct
 type CreateRequestUser struct {
 	Name          string   `json:"name"`
@@ -65,9 +68,6 @@ func (u CreateRequestUser) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	}
 }
-
-// UserRoles user Role
-var UserRoles = []string{"ADMIN", "USER", "STUDENT"}
 
 // PasswordHash Password hashing
 func PasswordHash(pass string) string {
