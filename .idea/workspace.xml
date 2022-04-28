@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f35ff922-59c6-4c4d-98df-6e11f65d5674" name="Changes" comment="refactor">
+    <list default="true" id="f35ff922-59c6-4c4d-98df-6e11f65d5674" name="Changes" comment="cookie Auth done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/UserController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Db/Db.go" beforeDir="false" afterPath="$PROJECT_DIR$/Db/Db.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Helpers/Helper.go" beforeDir="false" afterPath="$PROJECT_DIR$/Helper/Helper.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Middleware/Auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/Middleware/Auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Router/Api.go" beforeDir="false" afterPath="$PROJECT_DIR$/Router/Api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/AuthService.go" beforeDir="false" afterPath="$PROJECT_DIR$/Service/AuthService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/UserService.go" beforeDir="false" afterPath="$PROJECT_DIR$/Service/UserService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +122,8 @@
     <MESSAGE value="auth middle wire almost complete and request header add and request cookies not work in every route &amp;&amp; deleted unused res" />
     <MESSAGE value="method refactor" />
     <MESSAGE value="refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
+    <MESSAGE value="cookie Auth done" />
+    <option name="LAST_COMMIT_MESSAGE" value="cookie Auth done" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
