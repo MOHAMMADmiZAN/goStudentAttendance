@@ -1,7 +1,7 @@
 package Middleware
 
 import (
-	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helpers"
+	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helper"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Service"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
@@ -17,27 +17,40 @@ func Auth(next httprouter.Handle) httprouter.Handle {
 			authToken = strings.Split(authToken, " ")[1]
 			token, err := Service.DecodeJwtToken(w, authToken)
 			if err != nil {
-				Helpers.ResponseMessage(w, http.StatusUnauthorized, "Unauthorized")
+				Helper.ResponseMessage(w, http.StatusUnauthorized, "Unauthorized")
 				return
 			}
 			email := token["data"].(string)
 
 			if !Service.ExistsUser(w, email) {
-				Helpers.ResponseMessage(w, http.StatusUnauthorized, "please login first")
+				Helper.ResponseMessage(w, http.StatusUnauthorized, "please login first")
 				return
 			}
 			/**
-			TODO: active  id and exp check in auth middleware
-
+			TODO: active  id and exp check in auth middleware Request Header Data Injection or cookie injection
 			*/
-			/*
-				exp := int64(token["exp"].(float64))
-						id := Service.UserId(w, email)
-				if id != Service.VerifyRequestUser.GetIdFromVerifyRequest(Service.LogVerify) || exp != Service.VerifyRequestUser.GetExpireTimeFromVerifyRequest(Service.LogVerify) {
-						Helpers.ResponseMessage(w, http.StatusUnauthorized, "Token is not valid")
-						return
 
-					}*/
+			/*
+								exp := int64(token["exp"].(float64))
+										id := Service.UserId(w, email)
+								if id != Service.VerifyRequestUser.GetIdFromVerifyRequest(Service.LogVerify) || exp != Service.VerifyRequestUser.GetExpireTimeFromVerifyRequest(Service.LogVerify) {
+										Helper.ResponseMessage(w, http.StatusUnauthorized, "Token is not valid")
+										return
+
+
+				             tokenExp := token["token"].(string)
+							cookie, err := Helper.DecodeSecureCookie(w, r, "UserData")
+							if err != nil {
+								Helper.ResponseMessage(w, http.StatusUnauthorized, err.Error())
+								return
+							}
+
+							if cookie["Email"] != email || cookie["Id"] != Service.UserId(w, email) || cookie["ExpireTime"] != tokenExp {
+								Helper.ResponseMessage(w, http.StatusUnauthorized, "Unauthorized Cookie Token")
+								return
+
+							}
+			*/
 
 		}
 		next(w, r, ps)

@@ -2,7 +2,7 @@ package Controller
 
 import (
 	"encoding/json"
-	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helpers"
+	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helper"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Model"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Service"
 	"github.com/julienschmidt/httprouter"
@@ -26,10 +26,10 @@ func GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	coll := mgm.Coll(user)
 	err := coll.FindByID(id, user)
 	if err != nil {
-		Helpers.ResponseMessage(w, http.StatusNotFound, "User not found")
+		Helper.ResponseMessage(w, http.StatusNotFound, "User not found")
 		return
 	}
-	Helpers.ResponseMessage(w, http.StatusOK, user)
+	Helper.ResponseMessage(w, http.StatusOK, user)
 
 }
 
@@ -41,15 +41,15 @@ func DeleteUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	coll := mgm.Coll(user)
 	err := coll.FindByID(id, user)
 	if err != nil {
-		Helpers.ResponseMessage(w, http.StatusNotFound, "User not found")
+		Helper.ResponseMessage(w, http.StatusNotFound, "User not found")
 		return
 	}
 	err = coll.Delete(user)
 	if err != nil {
-		Helpers.ResponseMessage(w, http.StatusInternalServerError, "Internal server error")
+		Helper.ResponseMessage(w, http.StatusInternalServerError, "Internal server error")
 		return
 	}
-	Helpers.ResponseMessage(w, http.StatusOK, "User deleted Successfully")
+	Helper.ResponseMessage(w, http.StatusOK, "User deleted Successfully")
 
 }
 
@@ -60,14 +60,14 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	var updateUser Service.CreateRequestUser
 	err := json.NewDecoder(r.Body).Decode(&updateUser)
 	if err != nil {
-		Helpers.ResponseMessage(w, http.StatusBadRequest, "Invalid request body")
+		Helper.ResponseMessage(w, http.StatusBadRequest, "Invalid request body")
 		return
 	}
 	user := &Model.User{}
 	coll := mgm.Coll(user)
 	err = coll.FindByID(id, user)
 	if err != nil {
-		Helpers.ResponseMessage(w, http.StatusNotFound, "User not found")
+		Helper.ResponseMessage(w, http.StatusNotFound, "User not found")
 		return
 	}
 	if updateUser.Name != "" {
@@ -87,10 +87,10 @@ func UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 	err = coll.Update(user)
 	if err != nil {
-		Helpers.ResponseMessage(w, http.StatusInternalServerError, "Internal server error")
+		Helper.ResponseMessage(w, http.StatusInternalServerError, "Internal server error")
 		return
 	}
-	Helpers.ResponseMessage(w, http.StatusOK, "User updated Successfully")
+	Helper.ResponseMessage(w, http.StatusOK, "User updated Successfully")
 
 }
 
@@ -102,10 +102,10 @@ func GetAllUsers(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	var users []Model.User
 	err := coll.SimpleFind(&users, bson.M{})
 	if err != nil {
-		Helpers.ResponseMessage(w, http.StatusInternalServerError, err.Error())
+		Helper.ResponseMessage(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	Helpers.ResponseMessage(w, http.StatusOK, users)
+	Helper.ResponseMessage(w, http.StatusOK, users)
 
 }

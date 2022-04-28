@@ -1,11 +1,17 @@
-package Helpers
+package Helper
 
 import (
 	"encoding/json"
+	"github.com/gorilla/securecookie"
 	"github.com/joho/godotenv"
+	"math/rand"
 	"net/http"
 	"os"
 )
+
+var hashKey = securecookie.GenerateRandomKey(32)
+var blockKey = securecookie.GenerateRandomKey(32)
+var C *securecookie.SecureCookie = securecookie.New(hashKey, blockKey)
 
 type JsonResponse struct {
 	Status  int         `json:"status"`
@@ -76,11 +82,51 @@ func GetCookie(w http.ResponseWriter, r *http.Request, name string) string {
 	return c.Value
 }
 
-// AddCookie for global Request
-func AddCookie(w http.ResponseWriter, r *http.Request, name string, value string) {
-	c := &http.Cookie{
-		Name:  name,
-		Value: value,
+// MakeSecureCookie make secure cookie
+/**
+  Todo: make a secure cookie function with gorilla secure cookie
+*/
+func MakeSecureCookie(w http.ResponseWriter, r *http.Request, name string, value map[string]string, maxAge int64) {
+
+	encoded, err := C.Encode(name, value)
+	if err != nil {
+		ResponseMessage(w, http.StatusInternalServerError, "Error encoding cookie")
+		return
 	}
-	http.SetCookie(w, c)
+	http.SetCookie(w, &http.Cookie{
+		Name:     name,
+		Value:    encoded,
+		MaxAge:   int(maxAge),
+		SameSite: http.SameSiteStrictMode,
+	})
+
+}
+
+// DecodeSecureCookie decodeSecureCookie decode
+func DecodeSecureCookie(w http.ResponseWriter, r *http.Request, name string) (map[string]string, error) {
+	c, err := r.Cookie(name)
+	if err != nil {
+		ResponseMessage(w, http.StatusBadRequest, "Cookie not found")
+		return nil, err
+	}
+	value := make(map[string]string)
+	err = C.Decode(name, c.Value, &value)
+	if err != nil {
+		ResponseMessage(w, http.StatusInternalServerError, "Error decoding cookie")
+		return nil, err
+	}
+	return value, nil
+
+}
+
+// DeleteAllCookies all cookies delete
+
+// RandomString randomString random string
+func RandomString(n int) string {
+	const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	b := make([]byte, n)
+	for i := range b {
+		b[i] = letterBytes[rand.Intn(len(letterBytes))]
+	}
+	return string(b)
 }

@@ -2,11 +2,12 @@ package Service
 
 import (
 	"encoding/json"
-	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helpers"
+	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helper"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/joho/godotenv"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -14,6 +15,7 @@ type LoginUser struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
+
 type LoginMethod interface {
 	LoginResponse()
 }
@@ -55,11 +57,11 @@ func (v VerifyRequestUser) GetExpireTimeFromVerifyRequest() int64 {
 func (l LoginUser) LoginResponse(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&l)
 	if err != nil {
-		Helpers.ResponseMessage(w, http.StatusBadRequest, "Invalid request payload")
+		Helper.ResponseMessage(w, http.StatusBadRequest, "Invalid request payload")
 		return
 	}
 	if l.Email == "" || l.Password == "" {
-		Helpers.ResponseMessage(w, http.StatusBadRequest, "Invalid Input")
+		Helper.ResponseMessage(w, http.StatusBadRequest, "Invalid Input")
 		return
 	}
 
@@ -67,7 +69,7 @@ func (l LoginUser) LoginResponse(w http.ResponseWriter, r *http.Request) {
 	if len(hashPass) != 0 && ValidatePassword(w, hashPass, l.Password) {
 		token, err := MakeJwtToken(w, l.Email)
 		if err != nil {
-			Helpers.ResponseMessage(w, http.StatusBadGateway, "Error while generating token")
+			Helper.ResponseMessage(w, http.StatusBadGateway, "Error while generating token")
 		}
 		loginResponse := struct {
 			Token   string `json:"token"`
@@ -78,13 +80,17 @@ func (l LoginUser) LoginResponse(w http.ResponseWriter, r *http.Request) {
 		}
 		jwtToken, err := DecodeJwtToken(w, token)
 		if err != nil {
-			Helpers.ResponseMessage(w, http.StatusBadGateway, "Error while decoding token")
+			Helper.ResponseMessage(w, http.StatusBadGateway, "Error while decoding token")
 		}
 		id := UserId(w, l.Email)
 		exp := int64(jwtToken["exp"].(float64))
 		LogVerify = VerifyRequestUser.StoreVerifyRequest(LogVerify, id, exp)
-
-		Helpers.ResponseMessage(w, http.StatusOK, loginResponse)
+		Helper.MakeSecureCookie(w, r, "UserData", map[string]string{
+			"Id":         id,
+			"Email":      l.Email,
+			"ExpireTime": strconv.FormatInt(exp, 10),
+		}, exp)
+		Helper.ResponseMessage(w, http.StatusOK, loginResponse)
 
 	}
 
@@ -94,7 +100,7 @@ func (l LoginUser) LoginResponse(w http.ResponseWriter, r *http.Request) {
 func MakeJwtToken(w http.ResponseWriter, data interface{}) (string, error) {
 	secret, err := MakeJwtSecret()
 	if err != nil {
-		Helpers.ResponseMessage(w, http.StatusInternalServerError, "Error while making jwt secret")
+		Helper.ResponseMessage(w, http.StatusInternalServerError, "Error while making jwt secret")
 	}
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
@@ -103,7 +109,7 @@ func MakeJwtToken(w http.ResponseWriter, data interface{}) (string, error) {
 
 	tokenString, err := token.SignedString([]byte(secret))
 	if err != nil {
-		Helpers.ResponseMessage(w, http.StatusInternalServerError, "Error while making jwt token")
+		Helper.ResponseMessage(w, http.StatusInternalServerError, "Error while making jwt token")
 	}
 	return tokenString, nil
 }
@@ -125,7 +131,7 @@ func MakeJwtSecret() (string, error) {
 func DecodeJwtToken(w http.ResponseWriter, tokenString string) (jwt.MapClaims, error) {
 	secret, err := MakeJwtSecret()
 	if err != nil {
-		Helpers.ResponseMessage(w, http.StatusInternalServerError, "Error while making jwt secret")
+		Helper.ResponseMessage(w, http.StatusInternalServerError, "Error while making jwt secret")
 		return nil, err
 	}
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
@@ -137,11 +143,11 @@ func DecodeJwtToken(w http.ResponseWriter, tokenString string) (jwt.MapClaims, e
 	claims := token.Claims.(jwt.MapClaims)
 	err = claims.Valid()
 	if err != nil {
-		Helpers.ResponseMessage(w, http.StatusUnauthorized, "Invalid JWT token")
+		Helper.ResponseMessage(w, http.StatusUnauthorized, "Invalid JWT token")
 		return nil, err
 	}
 	if !token.Valid {
-		Helpers.ResponseMessage(w, http.StatusUnauthorized, "Invalid JWT token")
+		Helper.ResponseMessage(w, http.StatusUnauthorized, "Invalid JWT token")
 		return nil, err
 	}
 
