@@ -1,6 +1,7 @@
 package Service
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helper"
@@ -40,7 +41,7 @@ func (aas AdminAttendanceEnable) EnableAttendance(w http.ResponseWriter, r *http
 
 }
 
-// FindRunningAttendance find running attendance
+// FindRunningAttendance find running attendance against user
 func FindRunningAttendance(w http.ResponseWriter, r *http.Request) ([]Model.AdminAttendance, string) {
 	cookie, err := Helper.DecodeSecureCookie(w, r, "UserData")
 	if err != nil {
@@ -96,4 +97,28 @@ func FindActiveAttendance() []Model.AdminAttendance {
 		return nil
 	}
 	return result
+}
+
+// FindAttendanceByUserId Find Attendance By User Id
+func FindAttendanceByUserId(uid string) []Model.AdminAttendance {
+	var w http.ResponseWriter
+	var a Model.AdminAttendance
+	resArray := make([]Model.AdminAttendance, 0)
+
+	cur, err := mgm.Coll(&a).Find(context.Background(), bson.M{"_id": HexToObjectId(uid), "status": "RUNNING"})
+	if err != nil {
+		Helper.ResponseMessage(w, http.StatusBadRequest, err.Error())
+		return nil
+	}
+	for cur.Next(context.Background()) {
+
+		err = cur.Decode(&a)
+		if err != nil {
+			Helper.ResponseMessage(w, http.StatusBadRequest, err.Error())
+			return nil
+		}
+		resArray = append(resArray, a)
+
+	}
+	return resArray
 }

@@ -8,8 +8,8 @@ import (
 // StudentAttendance /*- StudentId
 type StudentAttendance struct {
 	mgm.DefaultModel  `bson:",inline"`
-	StudentId         primitive.ObjectID `json:"studentId" bson:"studentId ,omitempty"`
-	AdminAttendanceID primitive.ObjectID `json:"adminAttendanceId" bson:"adminAttendanceId ,omitempty"`
+	StudentId         primitive.ObjectID `json:"studentId" bson:"studentId"`
+	AdminAttendanceID primitive.ObjectID `json:"adminAttendanceID" bson:"adminAttendanceID"`
 }
 
 func StudentAttendanceModel(studentID primitive.ObjectID, adminAttendanceId primitive.ObjectID) *StudentAttendance {

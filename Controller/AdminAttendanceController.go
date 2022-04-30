@@ -7,6 +7,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"net/http"
 )
 
@@ -15,7 +16,7 @@ func Enable(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	//find is Running Attendance Against this id
 	k, uid := Service.FindRunningAttendance(w, r)
-	if len(uid) == 0 {
+	if !primitive.IsValidObjectID(uid) {
 		return
 	}
 	if len(k) == 0 {

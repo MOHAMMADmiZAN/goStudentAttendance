@@ -4,20 +4,16 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f35ff922-59c6-4c4d-98df-6e11f65d5674" name="Changes" comment="cookie unix time fix">
-      <change afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Controller/AdminAttendanceController.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Service/AdminAttendanceService.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/SchedulerJobConfig.go" afterDir="false" />
+    <list default="true" id="f35ff922-59c6-4c4d-98df-6e11f65d5674" name="Changes" comment="cronjob  add">
+      <change afterPath="$PROJECT_DIR$/Controller/studentAttendanceController.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Service/studentAttendanceService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/AuthController.go" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/AuthController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Helper/Helper.go" beforeDir="false" afterPath="$PROJECT_DIR$/Helper/Helper.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/AdminAttendance.go" beforeDir="false" afterPath="$PROJECT_DIR$/Model/AdminAttendance.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/AdminAttendanceController.go" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/AdminAttendanceController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/StudentAttendance.go" beforeDir="false" afterPath="$PROJECT_DIR$/Model/StudentAttendance.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Router/Api.go" beforeDir="false" afterPath="$PROJECT_DIR$/Router/Api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/UserService.go" beforeDir="false" afterPath="$PROJECT_DIR$/Service/UserService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Service/AdminAttendanceService.go" beforeDir="false" afterPath="$PROJECT_DIR$/Service/AdminAttendanceService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/SchedulerJobConfig.go" beforeDir="false" afterPath="$PROJECT_DIR$/Job/JobScheduler.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +146,8 @@
     <MESSAGE value="refactor" />
     <MESSAGE value="cookie Auth done" />
     <MESSAGE value="cookie unix time fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="cookie unix time fix" />
+    <MESSAGE value="cronjob  add" />
+    <option name="LAST_COMMIT_MESSAGE" value="cronjob  add" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
