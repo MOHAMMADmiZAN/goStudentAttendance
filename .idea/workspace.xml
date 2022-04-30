@@ -4,12 +4,20 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f35ff922-59c6-4c4d-98df-6e11f65d5674" name="Changes" comment="cookie Auth done">
+    <list default="true" id="f35ff922-59c6-4c4d-98df-6e11f65d5674" name="Changes" comment="cookie unix time fix">
+      <change afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Controller/AdminAttendanceController.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Service/AdminAttendanceService.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/SchedulerJobConfig.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/AuthController.go" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/AuthController.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Helper/Helper.go" beforeDir="false" afterPath="$PROJECT_DIR$/Helper/Helper.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/AdminAttendance.go" beforeDir="false" afterPath="$PROJECT_DIR$/Model/AdminAttendance.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Router/Api.go" beforeDir="false" afterPath="$PROJECT_DIR$/Router/Api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/AuthService.go" beforeDir="false" afterPath="$PROJECT_DIR$/Service/AuthService.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Service/UserService.go" beforeDir="false" afterPath="$PROJECT_DIR$/Service/UserService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +73,7 @@
     &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
     &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;16.14.2&quot;,
     &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;16.11.31&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/User&quot;,
+    &quot;last_opened_file_path&quot;: &quot;G:/Go/src/student-attendance&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -77,6 +85,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;settings.typescriptcompiler&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\Go\src\student-attendance" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="student-attendance" />
@@ -86,6 +99,16 @@
       <package value="student-attendance" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="student-attendance" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="student-attendance" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="student-attendance" />
+      <directory value="student-attendance" />
+      <filePath value="$PROJECT_DIR$" />
+      <output_directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
@@ -126,7 +149,8 @@
     <MESSAGE value="method refactor" />
     <MESSAGE value="refactor" />
     <MESSAGE value="cookie Auth done" />
-    <option name="LAST_COMMIT_MESSAGE" value="cookie Auth done" />
+    <MESSAGE value="cookie unix time fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="cookie unix time fix" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

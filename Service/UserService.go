@@ -7,6 +7,7 @@ import (
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Model"
 	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
 )
@@ -133,4 +134,14 @@ func ExistsUser(w http.ResponseWriter, email string) bool {
 		return false
 	}
 	return true
+}
+
+// HexToObjectId hex to ObjectId
+func HexToObjectId(hex string) primitive.ObjectID {
+	var w http.ResponseWriter
+	id, err := primitive.ObjectIDFromHex(hex)
+	if err != nil {
+		Helper.ResponseMessage(w, http.StatusBadRequest, "ObjectId Create Failed")
+	}
+	return id
 }

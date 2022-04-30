@@ -6,14 +6,15 @@ import (
 	"net/http"
 )
 
-// Login login user
+// Register  user
 func Register(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	var registerUser Service.CreateRequestUser
-	Service.CreateRequestUser.CreateUser(registerUser, w, r)
+	registerUser.CreateUser(w, r)
 }
 
+//Login login user
 func Login(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	var loginUser Service.LoginUser
-	Service.LoginUser.LoginResponse(loginUser, w, r)
+	loginUser.LoginResponse(w, r)
 
 }

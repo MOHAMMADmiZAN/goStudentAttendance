@@ -15,11 +15,11 @@ import (
 type AdminAttendance struct {
 	mgm.DefaultModel `bson:",inline"`
 	Status           string             ` json:"status" bson:"status"`
-	TimeLimit        string             `json:"timeLimit" bson:"timeLimit"`
+	TimeLimit        int                `json:"timeLimit" bson:"timeLimit"`
 	UserID           primitive.ObjectID `json:"userID" bson:"userID,omitempty"`
 }
 
-func AdminAttendanceModel(status string, timeLimit string, userId primitive.ObjectID) *AdminAttendance {
+func AdminAttendanceModel(status string, timeLimit int, userId primitive.ObjectID) *AdminAttendance {
 	return &AdminAttendance{
 		Status:    status,
 		TimeLimit: timeLimit,

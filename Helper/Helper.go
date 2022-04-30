@@ -28,6 +28,7 @@ func (j JsonResponse) GetResponse(w http.ResponseWriter) {
 	err := json.NewEncoder(w).Encode(j)
 	if err != nil {
 		ResponseMessage(w, http.StatusInternalServerError, "Error encoding response")
+		return
 	}
 
 }
@@ -40,7 +41,8 @@ func ResponseMessage(w http.ResponseWriter, status int, message interface{}) {
 		Status:  status,
 		Message: message,
 	}
-	JsonResponse.GetResponse(j, w)
+	j.GetResponse(w)
+	return
 
 }
 
@@ -108,13 +110,13 @@ func MakeSecureCookie(w http.ResponseWriter, r *http.Request, name string, value
 func DecodeSecureCookie(w http.ResponseWriter, r *http.Request, name string) (map[string]string, error) {
 	c, err := r.Cookie(name)
 	if err != nil {
-		ResponseMessage(w, http.StatusBadRequest, "Cookie not found")
+
 		return nil, err
 	}
 	value := make(map[string]string)
 	err = C.Decode(name, c.Value, &value)
 	if err != nil {
-		ResponseMessage(w, http.StatusInternalServerError, "Error decoding cookie")
+
 		return nil, err
 	}
 	return value, nil
@@ -133,7 +135,7 @@ func RandomString(n int) string {
 	return string(b)
 }
 
-// find location against user ip
+// FindLocation find location against user ip
 func FindLocation(ip string) (string, error) {
 	resp, err := http.Get("http://ip-api.com/json/" + ip)
 	if err != nil {
@@ -153,7 +155,7 @@ func FindLocation(ip string) (string, error) {
 
 }
 
-// caught user ip who visit my website
+// GetUserIP caught user ip who visit my website
 func GetUserIP(r *http.Request) string {
 	ip := r.Header.Get("X-Forwarded-For")
 	if ip == "" {
@@ -162,14 +164,14 @@ func GetUserIP(r *http.Request) string {
 	return ip
 }
 
-// unix time to date time
+// UnixToDateTime unix time to date time
 func UnixToDateTime(unix int64) string {
 	t := time.Unix(unix, 0)
 	return t.Format("2006-01-02 15:04:05")
 
 }
 
-//int64 to time.time
+// Int64ToTime int64 to time.time
 func Int64ToTime(unix int64) time.Time {
 	t := time.Unix(unix, 0)
 	return t
