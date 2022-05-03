@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Controller"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Db"
+	"github.com/MOHAMMADmiZAN/goStudentAttendance/Helper"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Job"
 	"github.com/MOHAMMADmiZAN/goStudentAttendance/Middleware"
 	"github.com/julienschmidt/httprouter"
@@ -19,11 +20,19 @@ func Api() {
 	if Db.Init() {
 		// portNumber //
 		port := os.Getenv("PORT_NUMBER")
+		if port == "" {
+			port = "1010"
+		}
 		//Route init //
 		Route = httprouter.New()
-		// user route //
-		Route.GET("/", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-			Job.JobSchedule()
+		// router group
+		Route.GET("/health", func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+			Helper.ResponseMessage(w, http.StatusOK, "Student Attendance Running Successfully")
+		})
+		Route.GET("/", func(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
+
+			writer.Write([]byte("Welcome to Student Attendance System"))
+
 		})
 		// Auth route //
 		Route.POST("/register", Controller.Register)
