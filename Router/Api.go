@@ -18,6 +18,8 @@ var Route *httprouter.Router
 
 func Api() {
 	if Db.Init() {
+		// load env //
+		Helper.LoadEnv()
 		// portNumber //
 		port := os.Getenv("PORT_NUMBER")
 		if port == "" {
@@ -29,9 +31,11 @@ func Api() {
 		Route.GET("/health", func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 			Helper.ResponseMessage(w, http.StatusOK, "Student Attendance Running Successfully")
 		})
-		Route.GET("/", func(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
-
-			writer.Write([]byte("Welcome to Student Attendance System"))
+		Route.GET("/", func(w http.ResponseWriter, request *http.Request, params httprouter.Params) {
+			_, err := w.Write([]byte("Welcome to Student Attendance System"))
+			if err != nil {
+				return
+			}
 
 		})
 		// Auth route //
